@@ -46,7 +46,7 @@ app.get('/', function(req, res){
 
 // Challenge a specific user
 app.get('/challenge', function(req, res){
-	bot.send("/challenge " + req.query.user + ", randombattle", null);
+	bot.send("/challenge " + req.query.user + ", randombattle", null); //a sample request. bot.
 	res.redirect("/");
 });
 

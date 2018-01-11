@@ -495,7 +495,13 @@ var BattleRoom = new JS.Class({
             return this.init(data);
         }
         if (data.substr(0, 9) === '|request|') {
+			try {
             return this.receiveRequest(JSON.parse(data.substr(9)));
+			}
+			catch(e)
+			{
+			logger.trace("<<"+e);
+			}
         }
 
         var log = data.split('\n');
@@ -599,7 +605,7 @@ var BattleRoom = new JS.Class({
 
                 } else if(tokens[1] === 'cant') {
 
-                } else if(tokens[1] === 'leave') {
+                } else if(tokens[1] === 'l') {
 
                 } else if(tokens[1]) { //what if token is defined
                     logger.info("Error: could not parse token '" + tokens[1] + "'. This needs to be implemented");
