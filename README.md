@@ -37,3 +37,9 @@ By default, the server searches for unranked random battles when the option is t
     --nosave: Don't save games to the in-memory db.
     --nolog: Don't append to log files.
     --startchallenging: Start out challenging, instead of requiring a manual activation first.
+
+## HOW TO
+	This repo is made on node.js. So plz install node before all else
+	bots folder has the AI code. minimaxbot.js is prefered (decide() function is where the decision is made and returned)
+	the neural net implementation used is convnet.js
+	
