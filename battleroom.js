@@ -735,8 +735,10 @@ var BattleRoom = new JS.Class({
             }
 
             var decision = BattleRoom.parseRequest(request);
-
+			//logger.info("decision list:"+JSON.stringify(decision));
             // Use specified algorithm to determine resulting choice
+			q=request.side.pokemon[0].details;
+			megaed=(q.slice(q.indexOf('-')+1,q.indexOf(','))=="Mega")?true:false;
             var result = undefined;
             if(decision.choices.length == 1) result = decision.choices[0];
             else if(program.algorithm === "minimax") result = minimaxbot.decide(clone(room.state), decision.choices);
@@ -744,14 +746,14 @@ var BattleRoom = new JS.Class({
             else if(program.algorithm === "random") result = randombot.decide(clone(room.state), decision.choices);
 
             room.decisions.push(result);
-            room.send("/choose " + BattleRoom.toChoiceString(result, room.state.p1) + "|" + decision.rqid, room.id);
+            room.send("/choose " + BattleRoom.toChoiceString(result, room.state.p1,megaed) + "|" + decision.rqid, room.id);
         }, 5000);
     },
     // Static class methods
     extend: {
-        toChoiceString: function(choice, battleside) {
+        toChoiceString: function(choice, battleside,megaed) {
             if (choice.type == "move") {
-                if(battleside && battleside.active[0].canMegaEvo) //mega evolve if possible
+                if(battleside && battleside.active[0].canMegaEvo && !megaed) //mega evolve if possible
                     return "move " + choice.id + " mega";
                 else
                     return "move " + choice.id;
